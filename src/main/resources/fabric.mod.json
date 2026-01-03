@@ -3,16 +3,13 @@
   "id": "utillimiter",
   "version": "${version}",
   "name": "UtilLimiter",
-  "description": "",
+  "description": "Server-side mod that limits Protection to level 3 and blocks certain splash/lingering potion effects",
   "authors": [],
   "contact": {},
   "license": "MIT",
   "icon": "assets/utillimiter/icon.png",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "net.saturn.utillimiter.client.UtillimiterClient"
-    ],
     "main": [
       "net.saturn.utillimiter.Utillimiter"
     ]

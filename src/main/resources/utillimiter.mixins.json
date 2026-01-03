@@ -4,6 +4,10 @@
   "package": "net.saturn.utillimiter.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "EnchantmentHelperMixin",
+    "AnvilScreenHandlerMixin",
+    "PotionEntityMixin",
+    "AreaEffectCloudEntityMixin"
   ],
   "client": [
   ],
