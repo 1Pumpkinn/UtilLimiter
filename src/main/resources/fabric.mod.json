@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "utillimiter",
+  "version": "${version}",
+  "name": "UtilLimiter",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/utillimiter/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.saturn.utillimiter.client.UtillimiterClient"
+    ],
+    "main": [
+      "net.saturn.utillimiter.Utillimiter"
+    ]
+  },
+  "mixins": [
+    "utillimiter.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
