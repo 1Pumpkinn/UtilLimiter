@@ -2,22 +2,26 @@ package net.saturn.utillimiter.mixin;
 
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.PotionContentsComponent;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.projectile.thrown.PotionEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.hit.HitResult;
+import net.minecraft.item.Items;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(PotionEntity.class)
-public abstract class PotionEntityMixin {
+@Mixin(Item.class)
+public class PotionItemMixin {
 
-    @Inject(method = "onCollision", at = @At("HEAD"), cancellable = true)
-    private void blockBannedPotions(HitResult hitResult, CallbackInfo ci) {
-        PotionEntity potion = (PotionEntity) (Object) this;
-        ItemStack stack = potion.getStack();
+    @Inject(method = "finishUsing", at = @At("HEAD"), cancellable = true)
+    private void blockBannedDrinkablePotions(ItemStack stack, World world, LivingEntity user, CallbackInfoReturnable<ItemStack> cir) {
+        // Only check for potions
+        if (!stack.isOf(Items.POTION)) {
+            return;
+        }
 
         PotionContentsComponent contents = stack.get(DataComponentTypes.POTION_CONTENTS);
         if (contents == null) return;
@@ -33,8 +37,7 @@ public abstract class PotionEntityMixin {
         }).orElse(false);
 
         if (shouldBlock) {
-            potion.discard();
-            ci.cancel();
+            cir.setReturnValue(stack);
             return;
         }
 
@@ -50,8 +53,7 @@ public abstract class PotionEntityMixin {
                     || effectId.equals("poison")
                     || effectId.equals("instant_damage")
                     || effectId.equals("slow_falling")) {
-                potion.discard();
-                ci.cancel();
+                cir.setReturnValue(stack);
                 return;
             }
         }

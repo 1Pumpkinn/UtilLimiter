@@ -17,22 +17,26 @@ public abstract class AreaEffectCloudEntityMixin {
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     private void blockBannedCloudEffects(CallbackInfo ci) {
-
+        AreaEffectCloudEntity cloud = (AreaEffectCloudEntity) (Object) this;
         PotionContentsComponent contents = this.potionContentsComponent;
         if (contents == null) return;
 
         // ---- POTION TYPE CHECK ----
-        contents.potion().ifPresent(potionEntry -> {
+        boolean shouldRemove = contents.potion().map(potionEntry -> {
             String id = potionEntry.getKey()
                     .map(k -> k.getValue().getPath())
                     .orElse("");
 
-            if (id.equals("turtle_master")
+            return id.equals("turtle_master")
                     || id.equals("long_turtle_master")
-                    || id.equals("strong_turtle_master")) {
-                ci.cancel();
-            }
-        });
+                    || id.equals("strong_turtle_master");
+        }).orElse(false);
+
+        if (shouldRemove) {
+            cloud.discard();
+            ci.cancel();
+            return;
+        }
 
         // ---- EFFECT CHECK ----
         for (StatusEffectInstance effect : contents.getEffects()) {
@@ -43,11 +47,13 @@ public abstract class AreaEffectCloudEntityMixin {
             int amp = effect.getAmplifier();
 
             if (effectId.equals("strength") && amp >= 1) {
+                cloud.discard();
                 ci.cancel();
                 return;
             }
 
             if (effectId.equals("speed") && amp >= 1) {
+                cloud.discard();
                 ci.cancel();
                 return;
             }
@@ -55,6 +61,7 @@ public abstract class AreaEffectCloudEntityMixin {
             if (effectId.equals("poison")
                     || effectId.equals("instant_damage")
                     || effectId.equals("slow_falling")) {
+                cloud.discard();
                 ci.cancel();
                 return;
             }
