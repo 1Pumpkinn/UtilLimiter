@@ -22,6 +22,12 @@ public class LivingEntityMixin {
             Entity source,
             CallbackInfoReturnable<Boolean> cir
     ) {
+        // Block all effects from tipped arrows
+        if (source instanceof net.minecraft.entity.projectile.ArrowEntity) {
+            cir.setReturnValue(false);
+            return;
+        }
+        
         if (!(source instanceof PotionEntity)) return;
 
         String id = effect.getEffectType().getKey()

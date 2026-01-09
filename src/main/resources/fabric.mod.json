@@ -8,7 +8,7 @@
   "contact": {},
   "license": "MIT",
   "icon": "assets/utillimiter/icon.png",
-  "environment": "*",
+  "environment": "server",
   "entrypoints": {
     "main": [
       "net.saturn.utillimiter.Utillimiter"

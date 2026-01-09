@@ -10,7 +10,9 @@
     "AreaEffectCloudEntityMixin",
     "LivingEntityMixin",
     "MaceDisableMixin",
-    "PlayerEntityMaceMixin"
+    "PlayerEntityMaceMixin",
+    "PotionItemMixin",
+    "ArrowEntityMixin"
   ],
   "client": [],
   "injectors": {

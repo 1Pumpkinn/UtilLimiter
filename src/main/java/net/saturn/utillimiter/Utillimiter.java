@@ -7,6 +7,5 @@ public class Utillimiter implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        // Register the nickname command
     }
 }
