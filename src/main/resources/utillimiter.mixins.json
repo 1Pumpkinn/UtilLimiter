@@ -12,7 +12,8 @@
     "MaceDisableMixin",
     "PlayerEntityMaceMixin",
     "PotionItemMixin",
-    "ArrowEntityMixin"
+    "ArrowEntityMixin",
+    "SmithingScreenHandlerMixin"
   ],
   "client": [],
   "injectors": {
