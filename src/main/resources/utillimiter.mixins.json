@@ -4,12 +4,9 @@
   "package": "net.saturn.utillimiter.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "EnchantmentHelperMixin",
-    "EnchantmentHelperSetMixin",
     "AnvilScreenHandlerMixin",
     "PotionEntityMixin",
     "AreaEffectCloudEntityMixin",
-    "LivingEntityMixin",
     "MaceDisableMixin",
     "PlayerEntityMaceMixin",
     "PotionItemMixin",
